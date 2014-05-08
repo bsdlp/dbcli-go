@@ -6,17 +6,25 @@ import (
 )
 
 type Program struct {
-    title     string
-    id        int
-    image_url string
+    Title    string `json:"title"`
+    Id       int    `json:"id"`
+    ImageUrl string `json:"image_url"`
+}
+
+type ProgramCollection struct {
+    Programs []Program
 }
 
 type Workout struct {
-    image_url           string
-    workout_description string
-    title               string
-    program_ids         []int
-    trainer_name        string
+    ImageUrl           string `json:"image_url"`
+    WorkoutDescription string `json:"workout_description"`
+    Title              string `json:"title"`
+    ProgramIDs         []int  `json:"program_ids"`
+    TrainerName        string `json:"trainer_name"`
+}
+
+type WorkoutCollection struct {
+    Workouts []Workout
 }
 
 func main() {
