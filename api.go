@@ -69,6 +69,13 @@ func listPrograms() {
     }
 }
 
+func listWorkouts() {
+    workouts := parseWorkouts()
+    for i := range workouts {
+        fmt.Println(workouts[i].ImageUrl, workouts[i].WorkoutDescription, workouts[i].Title, workouts[i].ProgramIDs, workouts[i].TrainerName)
+    }
+}
+
 func main() {
     listPrograms()
 }
