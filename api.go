@@ -1,8 +1,10 @@
 package main
 
 import (
-    "github.com/codegangsta/cli"
-    "os"
+    "encoding/json"
+    "fmt"
+    "io/ioutil"
+    "net/http"
 )
 
 type Program struct {
@@ -11,9 +13,7 @@ type Program struct {
     ImageUrl string `json:"image_url"`
 }
 
-type ProgramCollection struct {
-    Programs []Program
-}
+type ProgramCollection []Program
 
 type Workout struct {
     ImageUrl           string `json:"image_url"`
@@ -23,10 +23,29 @@ type Workout struct {
     TrainerName        string `json:"trainer_name"`
 }
 
-type WorkoutCollection struct {
-    Workouts []Workout
+type WorkoutCollection []Workout
+
+func getPrograms() ProgramCollection {
+    program_url := "http://dbios.herokuapp.com/programs"
+    res, err := http.Get(program_url)
+    if err != nil {
+        panic(err)
+    }
+    defer res.Body.Close()
+    body, err := ioutil.ReadAll(res.Body)
+    if err != nil {
+        panic(err)
+    }
+
+    /* result := ProgramCollection */
+    var result ProgramCollection
+    if err := json.Unmarshal(body, &result); err != nil {
+        panic(err)
+    }
+    return result
 }
 
 func main() {
-    cli.NewApp().Run(os.Args)
+    bleh := getPrograms()
+    fmt.Println(bleh[0].Title)
 }
