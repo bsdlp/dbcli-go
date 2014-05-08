@@ -2,6 +2,7 @@ package main
 
 import (
     "encoding/json"
+    "fmt"
     "io/ioutil"
     "net/http"
 )
@@ -61,5 +62,13 @@ func parseWorkouts() WorkoutCollection {
     return result
 }
 
+func listPrograms() {
+    programs := parsePrograms()
+    for i := range programs {
+        fmt.Println(programs[i].Title, programs[i].Id, programs[i].ImageUrl)
+    }
+}
+
 func main() {
+    listPrograms()
 }
