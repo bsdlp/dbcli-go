@@ -6,6 +6,8 @@ import (
     "net/http"
 )
 
+const apiEndpoint = "http://dbios.herokuapp.com/"
+
 type Program struct {
     Title    string `json:"title"`
     Id       int    `json:"id"`
@@ -25,7 +27,7 @@ type Workout struct {
 type WorkoutCollection []Workout
 
 func getJawn(thingType string) []byte {
-    apiURL := "http://dbios.herokuapp.com/" + thingType
+    apiURL := apiEndpoint + thingType
     res, err := http.Get(apiURL)
     if err != nil {
         panic(err)
