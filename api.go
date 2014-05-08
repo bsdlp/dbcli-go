@@ -41,7 +41,8 @@ func getJawn(thingType string) []byte {
     return body
 }
 
-func parsePrograms(response []byte) ProgramCollection {
+func parsePrograms() ProgramCollection {
+    response := getJawn("programs")
     var result ProgramCollection
     if err := json.Unmarshal(response, &result); err != nil {
         panic(err)
@@ -50,7 +51,8 @@ func parsePrograms(response []byte) ProgramCollection {
     return result
 }
 
-func parseWorkouts(response []byte) WorkoutCollection {
+func parseWorkouts() WorkoutCollection {
+    response := getJawn("workouts")
     var result WorkoutCollection
     if err := json.Unmarshal(response, &result); err != nil {
         panic(err)
