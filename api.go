@@ -37,7 +37,6 @@ func getPrograms() ProgramCollection {
         panic(err)
     }
 
-    /* result := ProgramCollection */
     var result ProgramCollection
     if err := json.Unmarshal(body, &result); err != nil {
         panic(err)
