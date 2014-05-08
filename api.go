@@ -2,7 +2,6 @@ package main
 
 import (
     "encoding/json"
-    "fmt"
     "io/ioutil"
     "net/http"
 )
@@ -25,9 +24,9 @@ type Workout struct {
 
 type WorkoutCollection []Workout
 
-func getPrograms() ProgramCollection {
-    program_url := "http://dbios.herokuapp.com/programs"
-    res, err := http.Get(program_url)
+func getJawn(thingType string) []byte {
+    apiURL := "http://dbios.herokuapp.com/" + thingType
+    res, err := http.Get(apiURL)
     if err != nil {
         panic(err)
     }
@@ -37,14 +36,26 @@ func getPrograms() ProgramCollection {
         panic(err)
     }
 
+    return body
+}
+
+func parsePrograms(response []byte) ProgramCollection {
     var result ProgramCollection
-    if err := json.Unmarshal(body, &result); err != nil {
+    if err := json.Unmarshal(response, &result); err != nil {
         panic(err)
     }
+
+    return result
+}
+
+func parseWorkouts(response []byte) WorkoutCollection {
+    var result WorkoutCollection
+    if err := json.Unmarshal(response, &result); err != nil {
+        panic(err)
+    }
+
     return result
 }
 
 func main() {
-    bleh := getPrograms()
-    fmt.Println(bleh[0].Title)
 }
