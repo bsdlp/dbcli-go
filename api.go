@@ -77,5 +77,4 @@ func listWorkouts() {
 }
 
 func main() {
-    listPrograms()
 }
